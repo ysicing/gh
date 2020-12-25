@@ -39,30 +39,30 @@ const (
 
 	SystemHookEvents         Event = "System Hook"
 
-	systemGroupCreate         string = "group_create"
-	systemGroupDestroy         string = "group_destroy"
-	systemGroupRename         string = "group_rename"
-	systemKeyCreate         string = "key_create"
-	systemKeyDestroy         string = "key_destroy"
-	systemProjectCreate         string = "project_create"
-	systemProjectDestroy         string = "project_destroy"
-	systemProjectRename         string = "project_rename"
-	systemProjectTransfer         string = "project_transfer"
-	systemProjectUpdate         string = "project_update"
-	systemUserAddToGroup         string = "user_add_to_group"
-	systemUserAddToTeam         string = "user_add_to_team"
-	systemUserCreate         string = "user_create"
-	systemUserDestroy         string = "user_destroy"
-	systemUserFailedLogin         string = "user_failed_login"
-	systemUserRemoveFromGroup         string = "user_remove_from_group"
-	systemUserRemoveFromTeam         string = "user_remove_from_team"
-	systemUserRename         string = "user_rename"
-	systemUserUpdateForGroup         string = "user_update_for_group"
-	systemUserUpdateForTeam         string = "user_update_for_team"
-	systemPush string = "push"
-	systemTagPush string = "tag_push"
-	systemMergeRequest string = "merge_request"
-	systemRepositoryUpdate string = "repository_update"
+	SystemGroupCreate         string = "group_create"
+	SystemGroupDestroy         string = "group_destroy"
+	SystemGroupRename         string = "group_rename"
+	SystemKeyCreate         string = "key_create"
+	SystemKeyDestroy         string = "key_destroy"
+	SystemProjectCreate         string = "project_create"
+	SystemProjectDestroy         string = "project_destroy"
+	SystemProjectRename         string = "project_rename"
+	SystemProjectTransfer         string = "project_transfer"
+	SystemProjectUpdate         string = "project_update"
+	SystemUserAddToGroup         string = "user_add_to_group"
+	SystemUserAddToTeam         string = "user_add_to_team"
+	SystemUserCreate         string = "user_create"
+	SystemUserDestroy         string = "user_destroy"
+	SystemUserFailedLogin         string = "user_failed_login"
+	SystemUserRemoveFromGroup         string = "user_remove_from_group"
+	SystemUserRemoveFromTeam         string = "user_remove_from_team"
+	SystemUserRename         string = "user_rename"
+	SystemUserUpdateForGroup         string = "user_update_for_group"
+	SystemUserUpdateForTeam         string = "user_update_for_team"
+	SystemPush string = "push"
+	SystemTagPush string = "tag_push"
+	SystemMergeRequest string = "merge_request"
+	SystemRepositoryUpdate string = "repository_update"
 )
 
 // Option is a configuration option for the webhook
@@ -199,87 +199,87 @@ func eventParsing(gitLabEvent Event, events []Event, payload []byte) (interface{
 			return nil, err
 		}
 		switch pl.EventName {
-		case systemProjectCreate: // Project created
+		case SystemProjectCreate: // Project created
 			var sl SystemProjectCreatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemProjectDestroy: // Project destroyed
+		case SystemProjectDestroy: // Project destroyed
 			var sl SystemProjectDestroyPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemProjectRename: // Project renamed Note that project_rename is not triggered if the namespace changes. Please refer to group_rename and user_rename for that case.
+		case SystemProjectRename: // Project renamed Note that project_rename is not triggered if the namespace changes. Please refer to group_rename and user_rename for that case.
 			var sl SystemProjectRenamePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemProjectTransfer:
+		case SystemProjectTransfer:
 			var sl SystemProjectTransferPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemProjectUpdate:
+		case SystemProjectUpdate:
 			var sl SystemProjectUpdatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserAddToTeam: // New Team Member
+		case SystemUserAddToTeam: // New Team Member
 			var sl SystemUserAddToTeamPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserRemoveFromTeam: // Team Member Removed
+		case SystemUserRemoveFromTeam: // Team Member Removed
 			var sl SystemUserRemoveFromTeamPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserUpdateForTeam: // Team Member Updated:
+		case SystemUserUpdateForTeam: // Team Member Updated:
 			var sl SystemUserUpdateForTeamPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserCreate:
+		case SystemUserCreate:
 			var sl SystemUserCreatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserDestroy:
+		case SystemUserDestroy:
 			var sl SystemUserDestroyPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserFailedLogin: // User failed login If the user is blocked via LDAP, state will be ldap_blocked.
+		case SystemUserFailedLogin: // User failed login If the user is blocked via LDAP, state will be ldap_blocked.
 			var sl SystemUserFailedLoginPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserRename:
+		case SystemUserRename:
 			var sl SystemUserRenamePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemKeyCreate:
+		case SystemKeyCreate:
 			var sl SystemKeyCreatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemKeyDestroy:
+		case SystemKeyDestroy:
 			var sl SystemKeyDestroyPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemGroupCreate, systemGroupDestroy: // Group created owner_name and owner_email are always null
+		case SystemGroupCreate, SystemGroupDestroy: // Group created owner_name and owner_email are always null
 			var sl SystemGroupCreatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemGroupRename:
+		case SystemGroupRename:
 			var sl SystemGroupRenamePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemUserAddToGroup, systemUserRemoveFromGroup, systemUserUpdateForGroup: // New Group Member
+		case SystemUserAddToGroup, SystemUserRemoveFromGroup, SystemUserUpdateForGroup: // New Group Member
 			var sl SystemUserGroupPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemPush: // Push events Triggered when you push to the repository, except when pushing tags. It generates one event per modified branch.
+		case SystemPush: // Push events Triggered when you push to the repository, except when pushing tags. It generates one event per modified branch.
 			var sl SystemPushPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemTagPush: // Triggered when you create (or delete) tags to the repository. It generates one event per modified tag.
+		case SystemTagPush: // Triggered when you create (or delete) tags to the repository. It generates one event per modified tag.
 			var sl SystemTagPushPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemMergeRequest: // Triggered when a new merge request is created, an existing merge request was updated/merged/closed or a commit is added in the source branch.
+		case SystemMergeRequest: // Triggered when a new merge request is created, an existing merge request was updated/merged/closed or a commit is added in the source branch.
 			var sl SystemMergeRequestPayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
-		case systemRepositoryUpdate:
+		case SystemRepositoryUpdate:
 			var sl SystemRepositoryUpdatePayload
 			err := json.Unmarshal([]byte(payload), &sl)
 			return sl, err
